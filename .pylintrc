@@ -1,0 +1,89 @@
+[MASTER]
+# List of plugins (as comma separated values of python module names) to load,
+# usually to register additional checkers.
+load-plugins=
+    pylint_django
+
+ignore-paths=.*/migrations/.*.py
+
+# Allow loading of arbitrary C extensions. Extensions are imported into the
+# active Python interpreter and may run arbitrary code.
+unsafe-load-any-extension=yes
+
+[MESSAGES CONTROL]
+
+#disable=raw-checker-failed,
+#        bad-inline-option,
+#        locally-disabled,
+#        file-ignored,
+#        suppressed-message,
+#        useless-suppression,
+#        deprecated-pragma,
+#        use-symbolic-message-instead,
+#        missing-module-docstring,
+#        missing-class-docstring,
+#        missing-function-docstring,
+#        unexpected-line-ending-format,
+#        abstract-method,
+#        line-too-long,
+#        invalid-name,
+#        f-string-without-interpolation,
+#        no-else-return,
+#        duplicate-code,
+#        too-many-arguments,
+#        too-many-branches,
+#        too-many-locals,
+#        too-few-public-methods,
+#        raise-missing-from,
+#        too-many-return-statements,
+#        simplifiable-if-expression,
+#        too-many-statements,
+#        inconsistent-return-statements,
+#        super-with-arguments,
+#        too-many-lines,
+#        keyword-arg-before-vararg,
+#        arguments-differ,
+#        expression-not-assigned,
+#        unused-argument,
+#        consider-using-f-string,
+#        ungrouped-imports,
+#        redefined-builtin,
+#        wrong-import-order,
+#        too-many-nested-blocks,
+#        too-many-instance-attributes,
+#        broad-except,
+#        unspecified-encoding,
+#        protected-access,
+#        too-many-public-methods,
+
+[MISCELLANEOUS]
+
+# List of note tags to take in consideration, separated by a comma.
+notes=FIXME,
+      XXX
+
+[FORMAT]
+
+# Expected format of line ending, e.g. empty (any line ending), LF or CRLF.
+expected-line-ending-format=LF
+
+# Regexp for a line that is allowed to be longer than the limit.
+ignore-long-lines=^\s*(# )?<?https?://\S+>?$
+
+# Maximum number of characters on a single line.
+max-line-length=120
+
+# Maximum number of lines in a module.
+max-module-lines=1000
+
+[BASIC]
+
+# Good variable names which should always be accepted, separated by a comma.
+good-names=i,
+           q,
+           qs,
+           j,
+           k,
+           ex,
+           Run,
+           _
