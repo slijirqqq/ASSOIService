@@ -4,6 +4,8 @@
 
 > Backend api to store information on employees and students of the university's ASSOI department
 
+> [CHANGELOG](CHANGELOG.md)
+
 # Getting started
 
 - [Running a project on a local machine](doc/Docker_en.md)
