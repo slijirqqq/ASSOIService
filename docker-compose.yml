@@ -1,0 +1,109 @@
+x-base-build: &x-base-build
+  context: ./
+
+services:
+  api:
+    hostname: assoi-backend
+    # allow when an image will appear remote
+    # image: cr.yandex/crpsk0r4n4ei849792nj/assoi:local
+    build: *x-base-build
+    command:
+      - /bin/bash
+      - -c
+      - |
+        python manage.py runserver 0.0.0.0:8000
+    env_file: ${BACKEND_DOTENV:-backend.env}
+    depends_on:
+      - init
+      - celery
+    volumes:
+      - ./:/opt/assoi
+      - static:/opt/assoi/static/
+      - media:/opt/assoi/media/
+    # allow interactive input for debug (ipdb)
+    stdin_open: true
+    tty: true
+  init:
+    # image: cr.yandex/crpsk0r4n4ei849792nj/assoi:local
+    build: *x-base-build
+    env_file: ${BACKEND_DOTENV:-backend.env}
+    command:
+      - /bin/bash
+      - -c
+      - |
+        echo "Apply migration to $${DB_HOST}"
+        python manage.py migrate
+        python manage.py collectstatic -c --noinput
+        python manage.py compilemessages
+        exit 0
+    depends_on:
+      - db
+    volumes:
+      - ./:/opt/assoi
+      - static:/opt/assoi/static/
+      - media:/opt/assoi/media/
+    restart: on-failure
+  db:
+    hostname: assoi-db
+    image: postgres:12-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER:-assoi}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres123}
+      - POSTGRES_DB=${DB_NAME:-assoi}
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "assoi" ]
+      start_period: 30s
+      interval: 10s
+      timeout: 30s
+      retries: 5
+  celery:
+    # image: cr.yandex/crpsk0r4n4ei849792nj/assoi:local
+    build: *x-base-build
+    env_file:
+      - ${BACKEND_DOTENV:-backend.env}
+    command:
+      - /bin/bash
+      - -c
+      - |
+        celery -A SystemCore worker -B -l INFO -E -s /opt/assoi/celerybeat/celerybeat-schudule.db
+    volumes:
+      - ./:/opt/assoi
+      - celery-db:/opt/assoi/celerybeat
+      - media:/opt/assoi/media/
+    depends_on:
+      - init
+
+  redis:
+    image: redis:6-alpine
+    volumes:
+      - redis-data:/data
+    depends_on:
+      - init
+
+  proxy:
+    image: nginx:stable-alpine
+    volumes:
+      - ./docker/nginx-config:/etc/nginx/conf.d/
+      - static:/var/opt/assoi/static/
+      - media:/var/opt/assoi/media/
+    depends_on:
+      - api
+    ports:
+      - 8000:80
+      - 9000:9000
+
+volumes:
+  db-data:
+  static:
+  media:
+  redis-data:
+  celery-db:
+
+networks:
+  default:
+    name: ${NETWORK_ID:-assoi}
+    external: true
