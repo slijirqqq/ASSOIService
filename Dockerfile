@@ -13,7 +13,7 @@ RUN apt-get update \
   && exit 0 # terminate last backslash. So we will have clear git blame
 
 # update pip
-RUN pip install --upgrade pip
+RUN pip install --no-cache-dir --upgrade pip
 
 # install python packages from prod.requirements.txt
 # copy prod.requirements.txt only to use Docker cache.

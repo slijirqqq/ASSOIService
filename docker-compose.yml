@@ -12,6 +12,8 @@ services:
       - -c
       - |
         python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 80:8000
     env_file: ${BACKEND_DOTENV:-.backend.env}
     depends_on:
       - init
@@ -69,12 +71,33 @@ services:
       - /bin/bash
       - -c
       - |
-        celery -A ASSOI flower --port=5555 worker -B -l INFO -E -s /opt/assoi/celerybeat/celerybeat-schudule.db
+        celery -A ASSOI worker -B -l INFO -E -s /opt/assoi/celerybeat/celerybeat-schudule.db
     volumes:
       - ./:/opt/assoi
       - celery-db:/opt/assoi/celerybeat
       - media:/opt/assoi/media/
     depends_on:
+      - init
+      - redis
+
+  celery-flower:
+    image: slijirqqq/assoi-service:local
+    build: *x-base-build
+    restart: always
+    command: celery -A ASSOI flower --loglevel=DEBUG --port=9090
+    ports:
+      - 9090:9090
+    env_file:
+      - ${BACKEND_DOTENV:-.backend.env}
+    volumes:
+      - ./:/opt/assoi
+      - celery-db:/opt/assoi/celerybeat
+      - media:/opt/assoi/media/
+    links:
+      - db
+      - redis
+    depends_on:
+      - redis
       - init
 
   redis:
@@ -94,7 +117,6 @@ services:
       - api
     ports:
       - 8000:80
-      - 9000:9000
 
 volumes:
   db-data:
