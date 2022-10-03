@@ -36,7 +36,7 @@ services:
         echo "Apply migration to $${DB_HOST}"
         python manage.py migrate
         python manage.py collectstatic -c --noinput
-        python manage.py compilemessages
+        python manage.py compilemessages -l ru
         exit 0
     depends_on:
       - db
