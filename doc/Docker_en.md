@@ -26,12 +26,14 @@ cd ASSSOIService
 - Start docker compose:
 
 ```shell
-# create shared docker network
+# create shared docker network on Linux system
 docker network create assoi >/dev/null 2>&1
+# create shared docker network on Windows system
+docker network create assoi
 # start everything up
 docker compose up -d
-# checking api logs
-docker compose logs -f --tail=100 api
+# wait init app of docker compose
+docker compose logs -f --tail=100 init
 # load initial data
 docker compose run --rm api python manage.py init_full_data
 ```

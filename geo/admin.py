@@ -1,3 +1,20 @@
 from django.contrib import admin
 
-# Register your models here.
+from geo.models import (
+    Region, City, Country
+)
+
+
+@admin.register(Region)
+class RegionAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    pass

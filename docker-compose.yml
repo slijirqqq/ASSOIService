@@ -5,14 +5,14 @@ services:
   api:
     hostname: assoi-backend
     # allow when an image will appear remote
-    # image: cr.yandex/crpsk0r4n4ei849792nj/assoi:local
+    image: slijirqqq/assoi-service:local
     build: *x-base-build
     command:
       - /bin/bash
       - -c
       - |
         python manage.py runserver 0.0.0.0:8000
-    env_file: ${BACKEND_DOTENV:-backend.env}
+    env_file: ${BACKEND_DOTENV:-.backend.env}
     depends_on:
       - init
       - celery
@@ -24,9 +24,9 @@ services:
     stdin_open: true
     tty: true
   init:
-    # image: cr.yandex/crpsk0r4n4ei849792nj/assoi:local
+    image: slijirqqq/assoi-service:local
     build: *x-base-build
-    env_file: ${BACKEND_DOTENV:-backend.env}
+    env_file: ${BACKEND_DOTENV:-.backend.env}
     command:
       - /bin/bash
       - -c
@@ -61,10 +61,10 @@ services:
       timeout: 30s
       retries: 5
   celery:
-    # image: cr.yandex/crpsk0r4n4ei849792nj/assoi:local
+    image: slijirqqq/assoi-service:local
     build: *x-base-build
     env_file:
-      - ${BACKEND_DOTENV:-backend.env}
+      - ${BACKEND_DOTENV:-.backend.env}
     command:
       - /bin/bash
       - -c
