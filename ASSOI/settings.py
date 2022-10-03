@@ -65,7 +65,11 @@ TEMPLATES = [
     },
 ]
 
+# Server settings
+
 WSGI_APPLICATION = 'ASSOI.wsgi.application'
+
+ASGI_APPLICATION = 'ASSOI.asgi.application'
 
 # Database
 
@@ -165,6 +169,9 @@ LOGGING = {
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "app_core.pagination.PageNumberPagination",
 }
+
+# CHANNEL settings
+
 
 # Phonenumbers settings
 

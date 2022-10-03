@@ -69,7 +69,7 @@ services:
       - /bin/bash
       - -c
       - |
-        celery -A SystemCore worker -B -l INFO -E -s /opt/assoi/celerybeat/celerybeat-schudule.db
+        celery -A ASSOI worker -B -l INFO -E -s /opt/assoi/celerybeat/celerybeat-schudule.db
     volumes:
       - ./:/opt/assoi
       - celery-db:/opt/assoi/celerybeat
