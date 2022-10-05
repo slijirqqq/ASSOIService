@@ -34,8 +34,9 @@ INSTALLED_APPS = [
     'phonenumber_field',
 
     # Projects apps
-    'account.apps.AccountConfig',
-    'geo.apps.GeoConfig',
+    'account',
+    'geo',
+    'academic',
 ]
 
 MIDDLEWARE = [

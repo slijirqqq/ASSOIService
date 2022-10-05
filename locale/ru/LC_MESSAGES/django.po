@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-04 01:08+0300\n"
+"POT-Creation-Date: 2022-10-04 01:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,13 +20,85 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: ASSOI/settings.py:113
+#: ASSOI/settings.py:114
 msgid "Russian"
 msgstr "Русский"
 
-#: ASSOI/settings.py:114
+#: ASSOI/settings.py:115
 msgid "English"
 msgstr "Английский"
+
+#: academic/choices.py:6
+msgid "Technic PhD"
+msgstr "Кандидат технических наук"
+
+#: academic/choices.py:7
+msgid "Chemistry PhD"
+msgstr "Кандидат химических наук"
+
+#: academic/choices.py:8
+msgid "Pedagogical PhD"
+msgstr "Кандидат педагогических наук"
+
+#: academic/choices.py:10
+msgid "Physical and Mathematical PhD"
+msgstr "Кандидат физико-математических наук"
+
+#: academic/choices.py:11
+msgid "Doctor of Technical Sciences"
+msgstr "Доктор технических наук"
+
+#: academic/choices.py:12
+msgid "Doctor of Chemistry Sciences"
+msgstr "Доктор химических наук"
+
+#: academic/choices.py:13
+msgid "Doctor of Pedagogical Sciences"
+msgstr "Доктор педагогических наук"
+
+#: academic/choices.py:15
+msgid "Doctor of Physical and Mathematical Sciences"
+msgstr "Доктор физико-математических наук"
+
+#: academic/choices.py:19 account/choices.py:29
+msgid "Professor"
+msgstr "Профессор"
+
+#: academic/choices.py:20 account/choices.py:28
+msgid "Docent"
+msgstr "Доцент"
+
+#: academic/choices.py:21
+msgid "Scientist employee"
+msgstr "Научный сотрудник"
+
+#: academic/choices.py:22
+msgid "High scientist employee"
+msgstr "Старший научный сотрудник"
+
+#: academic/models.py:9
+msgid "Date"
+msgstr "Дата"
+
+#: academic/models.py:10
+msgid "Diploma number"
+msgstr "Номер диплома"
+
+#: academic/models.py:18 academic/models.py:21 account/models.py:128
+msgid "Academic degree"
+msgstr "Ученая степень"
+
+#: academic/models.py:22
+msgid "Academic degrees"
+msgstr "Ученая степени"
+
+#: academic/models.py:26 academic/models.py:29 account/models.py:130
+msgid "Academic title"
+msgstr "Ученое звание"
+
+#: academic/models.py:30
+msgid "Academic titles"
+msgstr "Ученое звания"
 
 #: account/choices.py:6
 msgid "Admin"
@@ -80,14 +152,6 @@ msgstr "Ассистент"
 msgid "High teacher"
 msgstr "Старший преподаватель"
 
-#: account/choices.py:28 account/choices.py:56
-msgid "Docent"
-msgstr "Доцент"
-
-#: account/choices.py:29 account/choices.py:55
-msgid "Professor"
-msgstr "Профессор"
-
 #: account/choices.py:33
 msgid "Engineer"
 msgstr "Инженер"
@@ -112,145 +176,97 @@ msgstr "Заведующий лабораторией"
 msgid "Technician 1st category"
 msgstr "Техник 1 категории"
 
-#: account/choices.py:42
-msgid "Technic PhD"
-msgstr "Кандидат технических наук"
-
-#: account/choices.py:43
-msgid "Chemistry PhD"
-msgstr "Кандидат химических наук"
-
-#: account/choices.py:44
-msgid "Pedagogical PhD"
-msgstr "Кандидат педагогических наук"
-
-#: account/choices.py:46
-msgid "Physical and Mathematical PhD"
-msgstr "Кандидат физико-математических наук"
-
-#: account/choices.py:47
-msgid "Doctor of Technical Sciences"
-msgstr "Доктор технических наук"
-
-#: account/choices.py:48
-msgid "Doctor of Chemistry Sciences"
-msgstr "Доктор химических наук"
-
-#: account/choices.py:49
-msgid "Doctor of Pedagogical Sciences"
-msgstr "Доктор педагогических наук"
-
-#: account/choices.py:51
-msgid "Doctor of Physical and Mathematical Sciences"
-msgstr "Доктор физико-математических наук"
-
-#: account/choices.py:57
-msgid "Scientist employee"
-msgstr "Научный сотрудник"
-
-#: account/choices.py:58
-msgid "High scientist employee"
-msgstr "Старший научный сотрудник"
-
-#: account/models.py:60 geo/models.py:22 geo/models.py:25 geo/models.py:32
+#: account/models.py:58 geo/models.py:22 geo/models.py:25 geo/models.py:32
 msgid "Country"
 msgstr "Страна"
 
-#: account/models.py:61 geo/models.py:35 geo/models.py:42
+#: account/models.py:59 geo/models.py:35 geo/models.py:42
 msgid "Region"
 msgstr "Регион"
 
-#: account/models.py:62 geo/models.py:45
+#: account/models.py:60 geo/models.py:45
 msgid "City"
 msgstr "Город"
 
-#: account/models.py:63
+#: account/models.py:61
 msgid "Street"
 msgstr "Улица"
 
-#: account/models.py:64
+#: account/models.py:62
 msgid "House"
 msgstr "Дом"
 
-#: account/models.py:70 account/models.py:71
+#: account/models.py:68 account/models.py:69
 msgid "Address"
 msgstr "Адрес"
 
-#: account/models.py:79
+#: account/models.py:77
 msgid "Email"
 msgstr "Электронная почта"
 
-#: account/models.py:80
+#: account/models.py:78
 msgid "Phone number"
 msgstr "Номер телефона"
 
-#: account/models.py:81
+#: account/models.py:79
 msgid "First name"
 msgstr "Имя"
 
-#: account/models.py:82
+#: account/models.py:80
 msgid "Last name"
 msgstr "Фамилия"
 
-#: account/models.py:85
+#: account/models.py:83
 msgid "Middle name"
 msgstr "Отчество"
 
-#: account/models.py:86
+#: account/models.py:84
 msgid "Avatar"
 msgstr "Аватар"
 
-#: account/models.py:88
+#: account/models.py:86
 msgid "Birth date"
 msgstr "Дата рождения"
 
-#: account/models.py:89
+#: account/models.py:87
 msgid "Education level"
 msgstr "Образование"
 
-#: account/models.py:91
+#: account/models.py:89
 msgid "Stake"
 msgstr "Ставка"
 
-#: account/models.py:92
+#: account/models.py:90
 msgid "Registration address"
 msgstr "Адрес регистрации"
 
-#: account/models.py:94
+#: account/models.py:92
 msgid "Resident address"
 msgstr "Фактический адрес проживания"
 
-#: account/models.py:96
+#: account/models.py:94
 msgid "Total work experience"
 msgstr "Общий трудовой стаж"
 
-#: account/models.py:107 account/models.py:127
+#: account/models.py:105 account/models.py:125
 msgid "User"
 msgstr "Пользователь"
 
-#: account/models.py:108
+#: account/models.py:106
 msgid "Users"
 msgstr "Пользователи"
 
-#: account/models.py:118
+#: account/models.py:116
 msgid "Date of advanced training"
 msgstr "Дата повышения квалификации"
 
-#: account/models.py:119
+#: account/models.py:117
 msgid "Place of advanced training"
 msgstr "Место повышения квалификации"
 
-#: account/models.py:120
+#: account/models.py:118
 msgid "Number of hours"
 msgstr "Количество часов"
-
-#: account/models.py:130
-msgid "Academic degree"
-msgstr "Ученая степень"
-
-#: account/models.py:131
-msgid "Academic title"
-msgstr "Ученое звание"
 
 #: account/models.py:134 account/models.py:156
 msgid "Post"

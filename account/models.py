@@ -12,8 +12,6 @@ from account.choices import (
     SupportChoices,
     PTeachingChoices,
     EducationLevelChoices,
-    AcademicTitle,
-    AcademicDegree,
 )
 from app_core.models import BaseModel
 
@@ -127,8 +125,10 @@ class PTeachingUser(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('User'), on_delete=models.CASCADE,
                                 related_name='pts_users')
     # Education user info
-    academic_degree = models.CharField(_('Academic degree'), choices=AcademicDegree.choices, max_length=128)
-    academic_title = models.CharField(_('Academic title'), choices=AcademicTitle.choices, max_length=128)
+    academic_degree = models.ForeignKey("academic.AcademicDegree", verbose_name=_('Academic degree'),
+                                        on_delete=models.CASCADE)
+    academic_title = models.ForeignKey("academic.AcademicTitle", verbose_name=_('Academic title'),
+                                       on_delete=models.CASCADE)
 
     # Teaching user info
     post = models.CharField(_('Post'), choices=PTeachingChoices.choices, max_length=128)
