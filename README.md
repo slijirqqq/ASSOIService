@@ -62,7 +62,7 @@ make lint
 Plain:
 
 ```shell
-docker-compose run --rm api pylint account/ geo/ app_core/ ASSOI/ assoi_manage/
+docker-compose run --rm api pylint account/ geo/ app_core/ ASSOI/ ASSOI_manage/
 ```
 
 # APPs
@@ -70,5 +70,6 @@ docker-compose run --rm api pylint account/ geo/ app_core/ ASSOI/ assoi_manage/
 - [account](account/README.md)
 - [app_core](app_core/README.md)
 - [geo](geo/README.md)
-- [assoi_manage](assoi_manage/README.md)
+- [ASSOI_manage](ASSOI_manage/README.md)
 - [academic](academic/README.md)
+- [authentication](authentication/README.md)

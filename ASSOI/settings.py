@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
 
     # Projects apps
+    'ASSOI_manage',
     'authentication',
     'academic',
     'account',
@@ -169,7 +170,12 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
-        "assoi": {
+        "ASSOI": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "ASSOI_manage": {
             "handlers": ["console"],
             "level": "INFO",
             "propagate": False,

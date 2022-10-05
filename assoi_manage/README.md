@@ -1,1 +1,0 @@
-## `ASSOI manage` app

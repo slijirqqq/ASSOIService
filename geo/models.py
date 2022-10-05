@@ -29,7 +29,7 @@ class Country(Geo):
 class Region(Geo):
     object_type = "region"
 
-    country = models.OneToOneField("Country", on_delete=models.CASCADE, verbose_name=_("Country"))
+    country = models.ForeignKey("Country", on_delete=models.CASCADE, verbose_name=_("Country"))
 
     class Meta:
         verbose_name = _("Region")
@@ -39,7 +39,7 @@ class Region(Geo):
 class City(Geo):
     object_type = "city"
 
-    region = models.OneToOneField("Region", on_delete=models.CASCADE, verbose_name=_("Region"))
+    region = models.ForeignKey("Region", on_delete=models.CASCADE, verbose_name=_("Region"))
 
     class Meta:
         verbose_name = _("City")
