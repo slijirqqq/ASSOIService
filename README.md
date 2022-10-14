@@ -17,11 +17,11 @@
 
 - Sample users:
 
-    - `superassoi:superassoi` — admin user (only admin role)
+    - `superassoi@assoi.com:superassoi` — admin user (only admin role)
 
-    - `assoigod:FehKNot7` — user with all roles
+    - `assoigod@assoi.com:FehKNot7` — user with all roles
 
-    - `<role name>-user:FehKNot7` (aspirant-user, student-user, etc.) — users with specific role
+    - `<role name>@assoi.com:FehKNot7` (pts@assoi.com, sts@assoi.com, etc.) — users with specific role
 - Default roles:
 
     - `sts`: *Teaching support staff* - УВП

@@ -5,15 +5,14 @@ import csv
 import logging
 import time
 from copy import copy
-from pathlib import Path
 from typing import Dict, Optional, List, Set, AnyStr, Tuple
 
 from django.db import models
 
+from ASSOI_manage.management.commands.submodule import SUBMODULE_DIR
 from geo.models import Geo, Region, City, Country
 
 logger = logging.getLogger(__name__)
-SUBMODULE_DIR = Path(__file__).resolve(strict=True).parent
 
 
 class CadastralLoader:

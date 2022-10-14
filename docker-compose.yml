@@ -12,8 +12,6 @@ services:
       - -c
       - |
         python manage.py runserver 0.0.0.0:8000
-    ports:
-      - 80:8000
     env_file: ${BACKEND_DOTENV:-.backend.env}
     depends_on:
       - init
@@ -37,6 +35,7 @@ services:
         python manage.py migrate
         python manage.py collectstatic -c --noinput
         python manage.py compilemessages -l ru
+        python manage.py init_full_data
         exit 0
     depends_on:
       - db
@@ -85,8 +84,6 @@ services:
     build: *x-base-build
     restart: always
     command: celery -A ASSOI flower --loglevel=DEBUG --port=9090
-    ports:
-      - 9090:9090
     env_file:
       - ${BACKEND_DOTENV:-.backend.env}
     volumes:
@@ -117,6 +114,7 @@ services:
       - api
     ports:
       - 8000:80
+      - 9090:9090
 
 volumes:
   db-data:

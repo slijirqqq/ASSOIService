@@ -1,0 +1,67 @@
+{
+  "superassoi": {
+    "first_name": "test_name",
+    "last_name": "test_last_name",
+    "phone": "89120000001",
+    "email": "superassoi@assoi.com",
+    "password": "superassoi",
+    "groups": [
+      "admin"
+    ],
+    "is_superuser": true,
+    "is_staff": true
+  },
+  "assoigod": {
+    "first_name": "god_name",
+    "last_name": "god_last_name",
+    "phone": "89120000000",
+    "email": "assoigod@assoi.com",
+    "password": "FehKNot7",
+    "groups": [
+      "sts",
+      "pts",
+      "aspirant",
+      "student"
+    ]
+  },
+  "pts": {
+    "first_name": "pts_name",
+    "last_name": "pts_last_name",
+    "phone": "89120000002",
+    "email": "pts@assoi.com",
+    "password": "FehKNot7",
+    "groups": [
+      "pts"
+    ]
+  },
+  "sts": {
+    "first_name": "sts_user",
+    "last_name": "sts_last_name",
+    "phone": "89120000003",
+    "email": "sts@assoi.com",
+    "password": "FehKNot7",
+    "groups": [
+      "sts"
+    ]
+  },
+  "aspirant": {
+    "first_name": "aspirant_user",
+    "last_name": "aspirant_last_name",
+    "phone": "89120000004",
+    "email": "aspirant@assoi.com",
+    "password": "FehKNot7",
+    "groups": [
+      "aspirant"
+    ]
+  },
+  "student": {
+    "first_name": "student_user",
+    "last_name": "student_last_name",
+    "phone": "89120000004",
+    "email": "student@assoi.com",
+    "password": "FehKNot7",
+    "groups": [
+      "student"
+    ]
+  }
+}
