@@ -53,11 +53,9 @@ class UserManager(BaseUserManager):
 
 
 class Address(BaseModel):
-    object_type = 'address'
-
     country = models.OneToOneField("geo.Country", on_delete=models.CASCADE, verbose_name=_("Country"))
-    region = models.OneToOneField("geo.Region", on_delete=models.CASCADE, verbose_name=_("Region"))
-    city = models.OneToOneField("geo.City", on_delete=models.CASCADE, verbose_name=_("City"))
+    region = models.OneToOneField("geo.Region", on_delete=models.CASCADE, verbose_name=_("Region"), db_index=True)
+    city = models.OneToOneField("geo.City", on_delete=models.CASCADE, verbose_name=_("City"), db_index=True)
     street = models.CharField(_('Street'), max_length=256)
     house = models.CharField(_('House'), max_length=256)
 
@@ -68,24 +66,23 @@ class Address(BaseModel):
         verbose_name = _("Address")
         verbose_name_plural = _("Address")
         ordering = ['region__name']
+        db_table = "Address"
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    object_type = 'user'
-
     # Personal and system user info
     email = models.EmailField(db_index=True, verbose_name=_('Email'), max_length=256, unique=True)
     phone = PhoneNumberField(max_length=14, verbose_name=_("Phone number"), db_index=True, blank=True, null=True)
-    first_name = models.CharField(verbose_name=_('First name'), max_length=128)
-    last_name = models.CharField(verbose_name=_('Last name'), max_length=128)
+    first_name = models.CharField(verbose_name=_('First name'), max_length=128, db_index=True)
+    last_name = models.CharField(verbose_name=_('Last name'), max_length=128, db_index=True)
 
     # Only personal user info
-    middle_name = models.CharField(verbose_name=_('Middle name'), max_length=128, blank=True, null=True)
+    middle_name = models.CharField(verbose_name=_('Middle name'), max_length=128, blank=True, null=True, db_index=True)
     photo = models.ImageField(verbose_name=_('Avatar'), upload_to='media/images', blank=True,
                               default='images/default.png')
     birth_date = models.DateField(verbose_name=_('Birth date'), blank=True, null=True)
     education_level = models.CharField(_('Education level'), choices=EducationLevelChoices.choices,
-                                       blank=True, null=True, max_length=128)
+                                       blank=True, null=True, max_length=128, db_index=True)
     stake = models.CharField(_('Stake'), choices=StakeChoices.choices, blank=True, null=True, max_length=128)
     registration_address = models.ForeignKey("Address", verbose_name=_('Registration address'), null=True,
                                              on_delete=models.CASCADE, related_name='registered_users', blank=True)
@@ -105,25 +102,28 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = _("User")
         verbose_name_plural = _("Users")
         ordering = ["id", "first_name", "last_name"]
+        db_table = "User"
 
     def __str__(self):
-        return f"{self.__class__.__name__}: {self.last_name} {self.first_name} {self.middle_name}"
+        return f"{self.__class__.__name__} - {self.id}: {self.last_name} {self.first_name} {self.middle_name}"
 
 
 class ProfessionalDevelopment(BaseModel):
-    object_type = 'professional_development'
-
     date = models.DateField(_('Date of advanced training'))
     position = models.CharField(_('Place of advanced training'), max_length=256)
     hours_count = models.PositiveSmallIntegerField(_('Number of hours'))
 
+    class Meta:
+        verbose_name = _("Professional Development")
+        verbose_name_plural = _("Professional Development")
+        ordering = ["date"]
+        db_table = "ProfessionalDevelopment"
+
 
 class PTeachingUser(models.Model):
-    object_type = 'PTS'
-
     # External user info
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('User'), on_delete=models.CASCADE,
-                                related_name='pts_users')
+                                related_name='pts_users', db_index=True)
     # Education user info
     academic_degree = models.ForeignKey("academic.AcademicDegree", verbose_name=_('Academic degree'),
                                         on_delete=models.CASCADE)
@@ -144,17 +144,17 @@ class PTeachingUser(models.Model):
     class Meta:
         verbose_name = _("PTS")
         verbose_name_plural = _("PTS employee")
+        db_table = "PTS"
 
 
 class SupportTeachingUser(models.Model):
-    object_type = 'STS'
-
     # External user info
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('std_user'), on_delete=models.CASCADE,
-                                related_name='sts_users')
+                                related_name='sts_users', db_index=True)
     # Support user info
     post = models.CharField(_('Post'), choices=SupportChoices.choices, max_length=128)
 
     class Meta:
         verbose_name = _("STS")
         verbose_name_plural = _("STS employee")
+        db_table = "STS"

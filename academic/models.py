@@ -20,6 +20,7 @@ class AcademicDegree(AcademicBase):
     class Meta:
         verbose_name = _("Academic degree")
         verbose_name_plural = _("Academic degrees")
+        db_table = "AcademicDegree"
 
 
 class AcademicTitle(AcademicBase):
@@ -28,3 +29,4 @@ class AcademicTitle(AcademicBase):
     class Meta:
         verbose_name = _("Academic title")
         verbose_name_plural = _("Academic titles")
+        db_table = "AcademicTitle"
