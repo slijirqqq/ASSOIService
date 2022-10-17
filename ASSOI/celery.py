@@ -17,7 +17,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 
 @setup_logging.connect
-def config_loggers(*args, **kwargs):
+def config_loggers(*args, **kwargs):  # pragma: no cover
     dictConfig(settings.LOGGING)
 
 

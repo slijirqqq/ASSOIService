@@ -48,7 +48,7 @@ class RelatedUserMixin:
     def get_email(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:
         return obj.user.email
 
-    def get_photo(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:
+    def get_photo(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:  # pragma: no cover
         image_tag = '<img src="{}" width=150 height=150 />'
         if not bool(obj.user.photo):
             image_url = settings.BASE_DIR / "/static/account_images/default_user_pic.png"
