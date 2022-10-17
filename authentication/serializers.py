@@ -6,10 +6,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from account.choices import UserStaffChoices
-from account.models import (
-    PTeachingUser,
-    SupportTeachingUser,
-)
+from account.utils import set_user_to_relation
 from app_core.serializers import SerializersImplMixin
 from authentication.exceptions import IncorrectPasswordError
 from authentication.validators import validate_password
@@ -68,21 +65,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = super().create(validated_data)
         user.set_password(validated_data.get("password"))
-        self.create_relation(user)
+        set_user_to_relation(user, user.groups.all())
         user.save()
         return user
-
-    @staticmethod
-    def create_relation(user):
-        group_mapping = {
-            UserStaffChoices.s_teaching.value: SupportTeachingUser,
-            UserStaffChoices.p_teaching.value: PTeachingUser,
-        }
-        user_groups = user.groups.all()
-        for group in user_groups:
-            if group.name not in group_mapping:
-                continue
-            group_mapping[group.name].active_objects.create(user=user)
 
 
 class PasswordChangeSerializer(serializers.ModelSerializer):

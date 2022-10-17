@@ -86,7 +86,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Only personal user info
     middle_name = models.CharField(verbose_name=_('Middle name'), max_length=128, blank=True, null=True, db_index=True)
-    photo = models.ImageField(verbose_name=_('Avatar'), upload_to='media/images', blank=True, null=True)
+    photo = models.ImageField(verbose_name=_('Avatar'), upload_to='media/images', blank=True)
     birth_date = models.DateField(verbose_name=_('Birth date'), blank=True, null=True)
     education_level = models.CharField(_('Education level'), choices=EducationLevelChoices.choices,
                                        blank=True, null=True, max_length=128, db_index=True)

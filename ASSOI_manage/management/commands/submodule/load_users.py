@@ -2,7 +2,14 @@ import abc
 import json
 import logging
 from pathlib import Path
-from typing import Dict, Optional, List, AnyStr, Set, Union
+from typing import (
+    Dict,
+    Optional,
+    List,
+    AnyStr,
+    Set,
+    Union,
+)
 
 from django.contrib.auth import get_user_model, models
 from django.contrib.auth.hashers import make_password
@@ -10,7 +17,10 @@ from django.db.models import QuerySet
 
 from ASSOI_manage.management.commands.submodule import SUBMODULE_DIR
 from account.choices import UserStaffChoices
-from account.models import User
+from account.models import (
+    User,
+)
+from account.utils import set_user_to_relation
 
 logger = logging.getLogger(__name__)
 
@@ -136,6 +146,10 @@ class UserInit(AbstractInit):
         for instance in instances:
             if self.__related_data.get(instance.email):
                 instance.groups.set(self.__related_data[instance.email])
+                set_user_to_relation(
+                    instance,
+                    self.__related_data.get(instance.email)
+                )
 
     @staticmethod
     def __get_usernames(user_data) -> List[AnyStr]:

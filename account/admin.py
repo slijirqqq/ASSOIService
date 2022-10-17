@@ -1,13 +1,13 @@
 from typing import Union, AnyStr
 
+from django.conf import settings
 from django.contrib import admin
-from django.contrib.auth import get_user_model
+from django.utils.html import format_html
 
 from account.models import (
     PTeachingUser,
     SupportTeachingUser,
-    Address,
-)
+    Address, )
 
 
 class RelatedUserMixin:
@@ -22,6 +22,10 @@ class RelatedUserMixin:
     list_display_links = [
         'get_email',
         'get_phone',
+    ]
+
+    readonly_fields = [
+        'get_photo',
     ]
 
     @admin.display(ordering="user__first_name", description="First name")
@@ -44,6 +48,17 @@ class RelatedUserMixin:
     def get_email(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:
         return obj.user.email
 
+    def get_photo(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:
+        image_tag = '<img src="{}" width=150 height=150 />'
+        if not bool(obj.user.photo):
+            image_url = settings.BASE_DIR / "/static/account_images/default_user_pic.png"
+        else:
+            image_url = obj.user.photo.url
+        return format_html(image_tag, image_url)
+
+    get_photo.short_description = "Photo"
+    get_photo.allow_tags = True
+
 
 @admin.register(PTeachingUser)
 class PTSAdmin(RelatedUserMixin, admin.ModelAdmin):
@@ -62,6 +77,3 @@ class AddressAdmin(admin.ModelAdmin):
         "region__name",
         "city__name",
     ]
-
-
-admin.site.register(get_user_model())
