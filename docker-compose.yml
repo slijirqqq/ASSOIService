@@ -78,6 +78,7 @@ services:
     depends_on:
       - init
       - redis
+    restart: unless-stopped
 
   celery-flower:
     image: slijirqqq/assoi-service:local

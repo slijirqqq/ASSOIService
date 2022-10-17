@@ -1,8 +1,15 @@
 from __future__ import annotations
 
 from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    PermissionsMixin,
+    BaseUserManager,
+)
+from django.core.validators import (
+    MinValueValidator,
+    MaxValueValidator,
+)
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
@@ -72,14 +79,14 @@ class Address(BaseModel):
 class User(AbstractBaseUser, PermissionsMixin):
     # Personal and system user info
     email = models.EmailField(db_index=True, verbose_name=_('Email'), max_length=256, unique=True)
-    phone = PhoneNumberField(max_length=14, verbose_name=_("Phone number"), db_index=True, blank=True, null=True)
+    phone = PhoneNumberField(max_length=14, verbose_name=_("Phone number"), db_index=True, blank=True, null=True,
+                             unique=True)
     first_name = models.CharField(verbose_name=_('First name'), max_length=128, db_index=True)
     last_name = models.CharField(verbose_name=_('Last name'), max_length=128, db_index=True)
 
     # Only personal user info
     middle_name = models.CharField(verbose_name=_('Middle name'), max_length=128, blank=True, null=True, db_index=True)
-    photo = models.ImageField(verbose_name=_('Avatar'), upload_to='media/images', blank=True,
-                              default='images/default.png')
+    photo = models.ImageField(verbose_name=_('Avatar'), upload_to='media/images', blank=True, null=True)
     birth_date = models.DateField(verbose_name=_('Birth date'), blank=True, null=True)
     education_level = models.CharField(_('Education level'), choices=EducationLevelChoices.choices,
                                        blank=True, null=True, max_length=128, db_index=True)
@@ -119,25 +126,30 @@ class ProfessionalDevelopment(BaseModel):
         ordering = ["date"]
         db_table = "ProfessionalDevelopment"
 
+    def __str__(self):
+        return f"""
+        {self.__class__.__name__} - {self.id}: 
+        Completed In {self.position} on {self.date} in {self.hours_count} hours"""
 
-class PTeachingUser(models.Model):
+
+class PTeachingUser(BaseModel):
     # External user info
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('User'), on_delete=models.CASCADE,
                                 related_name='pts_users', db_index=True)
     # Education user info
     academic_degree = models.ForeignKey("academic.AcademicDegree", verbose_name=_('Academic degree'),
-                                        on_delete=models.CASCADE)
+                                        on_delete=models.CASCADE, blank=True, null=True)
     academic_title = models.ForeignKey("academic.AcademicTitle", verbose_name=_('Academic title'),
-                                       on_delete=models.CASCADE)
+                                       on_delete=models.CASCADE, blank=True, null=True)
 
     # Teaching user info
-    post = models.CharField(_('Post'), choices=PTeachingChoices.choices, max_length=128)
-    total_teaching_experience = models.PositiveSmallIntegerField(_('Total teaching experience'))
-    contract_term = models.PositiveSmallIntegerField(_('Contract term'))
-    start_term = models.DateField(_('Start term'))
-    end_term = models.DateField(_('End term'))
-    part_of_stake = models.DecimalField(_('Part of stake'), decimal_places=2, max_digits=5,
-                                        validators=[MinValueValidator(0), MaxValueValidator(100)])
+    post = models.CharField(_('Post'), choices=PTeachingChoices.choices, max_length=128, blank=True, null=True)
+    total_teaching_experience = models.PositiveSmallIntegerField(_('Total teaching experience'), blank=True, null=True)
+    contract_term = models.PositiveSmallIntegerField(_('Contract term'), blank=True, null=True)
+    start_term = models.DateField(_('Start term'), blank=True, null=True)
+    end_term = models.DateField(_('End term'), blank=True, null=True)
+    part_of_stake = models.DecimalField(_('Part of stake'), decimal_places=2, max_digits=5, null=True,
+                                        validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True)
     professional_development = models.ForeignKey("ProfessionalDevelopment", verbose_name=_('Professional development'),
                                                  on_delete=models.CASCADE, blank=True, null=True, related_name='users')
 
@@ -146,8 +158,13 @@ class PTeachingUser(models.Model):
         verbose_name_plural = _("PTS employee")
         db_table = "PTS"
 
+    def __str__(self):
+        return f"""
+        {self.__class__.__name__} - {self.id}: 
+        {self.user.last_name} {self.user.first_name} {self.user.middle_name}"""
 
-class SupportTeachingUser(models.Model):
+
+class SupportTeachingUser(BaseModel):
     # External user info
     user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name=_('std_user'), on_delete=models.CASCADE,
                                 related_name='sts_users', db_index=True)
@@ -158,3 +175,8 @@ class SupportTeachingUser(models.Model):
         verbose_name = _("STS")
         verbose_name_plural = _("STS employee")
         db_table = "STS"
+
+    def __str__(self):
+        return f"""
+        {self.__class__.__name__} - {self.id}: 
+        {self.user.last_name} {self.user.first_name} {self.user.middle_name}"""

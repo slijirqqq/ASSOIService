@@ -6,6 +6,8 @@ from app_core.models import BaseModel
 
 
 class Geo(BaseModel):
+    name = models.CharField(max_length=128, verbose_name=_("Name"))
+
     class Meta:
         ordering = ('id',)
         abstract = True

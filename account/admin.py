@@ -1,67 +1,67 @@
+from typing import Union, AnyStr
+
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 
 from account.models import (
-    User,
     PTeachingUser,
     SupportTeachingUser,
     Address,
 )
 
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    empty_value_display = '---'
-    list_display = [
-        'first_name',
-        'last_name',
-        'middle_name',
-        'email',
-        'phone',
-    ]
-    list_display_links = [
-        'email',
-        'phone',
-    ]
-    filter_horizontal = [
-        'groups',
-        'user_permissions',
-    ]
-    list_filter = [
-        'groups',
-        'education_level',
-        'stake',
-    ]
-    autocomplete_fields = [
-        'registration_address',
-        'resident_address',
-    ]
-
-
 class RelatedUserMixin:
+    list_display = [
+        'get_last_name',
+        'get_first_name',
+        'get_middle_name',
+        'get_phone',
+        'get_email',
+    ]
+
+    list_display_links = [
+        'get_email',
+        'get_phone',
+    ]
 
     @admin.display(ordering="user__first_name", description="First name")
-    def get_first_name(self, obj: PTeachingUser):
+    def get_first_name(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:
         return obj.user.first_name
+
+    @admin.display(ordering="user__last_name", description="Last name")
+    def get_last_name(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:
+        return obj.user.last_name
+
+    @admin.display(ordering="user__middle_name", description="Middle name")
+    def get_middle_name(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:
+        return obj.user.middle_name
+
+    @admin.display(ordering="user__phone", description="Phone")
+    def get_phone(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:
+        return obj.user.phone
+
+    @admin.display(ordering="user__email", description="Email")
+    def get_email(self, obj: Union[PTeachingUser, SupportTeachingUser]) -> AnyStr:
+        return obj.user.email
 
 
 @admin.register(PTeachingUser)
-class PTSAdmin(admin.ModelAdmin, RelatedUserMixin):
-    empty_values_display = '---'
-    list_display = [
-        'get_first_name',
-    ]
+class PTSAdmin(RelatedUserMixin, admin.ModelAdmin):
+    ...
 
 
 @admin.register(SupportTeachingUser)
-class STSAdmin(admin.ModelAdmin):
-    empty_values_display = '---'
+class STSAdmin(RelatedUserMixin, admin.ModelAdmin):
+    ...
 
 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
-    empty_values_display = '---'
     search_fields = [
         "country__name",
         "region__name",
         "city__name",
     ]
+
+
+admin.site.register(get_user_model())
