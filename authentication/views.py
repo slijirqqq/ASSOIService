@@ -4,7 +4,7 @@ from rest_framework.generics import (
     UpdateAPIView,
 )
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.serializers import TokenRefreshSerializer, TokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,

@@ -1,6 +1,4 @@
-from typing import (
-    Dict,
-)
+from typing import Dict
 
 from django.contrib.auth import get_user_model
 from django.urls import reverse

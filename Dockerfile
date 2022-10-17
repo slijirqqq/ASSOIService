@@ -3,6 +3,8 @@ FROM python:3.9-slim
 # send output straight to the container logs instead of buffering
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
+ENV PROJECT_PATH "/opt/assoi"
+ENV PYTHONPATH "${PYTHONPATH}:${PROJECT_PATH}"
 
 # install system packages
 RUN apt-get update \
@@ -18,8 +20,8 @@ RUN pip install --no-cache-dir --upgrade pip
 # install python packages from prod.requirements.txt
 # copy prod.requirements.txt only to use Docker cache.
 
-COPY prod.requirements.txt /opt/assoi/
-WORKDIR /opt/assoi
+COPY prod.requirements.txt $PROJECT_PATH/
+WORKDIR $PROJECT_PATH
 RUN pip install -Ur prod.requirements.txt
 
-COPY . /opt/assoi
+COPY . $PROJECT_PATH
