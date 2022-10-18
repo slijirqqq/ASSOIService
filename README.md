@@ -74,3 +74,5 @@ docker-compose run --rm api pylint account/ geo/ app_core/ ASSOI/ ASSOI_manage/ 
 - [ASSOI_manage](ASSOI_manage/README.md)
 - [academic](academic/README.md)
 - [authentication](authentication/README.md)
+- [api_doc](api_doc/README.md)
+- [version](version/README.md)

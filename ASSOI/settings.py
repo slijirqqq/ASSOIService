@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'channels',
     'django_filters',
     'phonenumber_field',
+    'drf_yasg',
 
     # Projects apps
     'account',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'authentication',
     'academic',
     'geo',
+    'api_doc',
 ]
 
 MIDDLEWARE = [
@@ -228,3 +230,9 @@ PHONENUMBER_DEFAULT_REGION = "RU"
 
 # Accounts settings
 AUTH_USER_MODEL = "account.User"
+
+# SWAGGER settings
+
+SWAGGER_SETTINGS = {
+    "DEFAULT_INFO": "api_doc.views.api_info",
+}
