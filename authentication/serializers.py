@@ -7,14 +7,14 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from account.choices import UserStaffChoices
 from account.utils import set_user_to_relation
-from app_core.serializers import SerializersImplMixin
+from app_core.serializers import SerializerImpl
 from authentication.exceptions import IncorrectPasswordError
 from authentication.validators import validate_password
 
 User = get_user_model()
 
 
-class ASSOITokenObtainPairSerializer(SerializersImplMixin, TokenObtainPairSerializer):
+class ASSOITokenObtainPairSerializer(SerializerImpl, TokenObtainPairSerializer):
 
     @classmethod
     def get_token(cls, user):

@@ -13,6 +13,7 @@
 - The interface will be available at localhost:
     - [http://localhost:8000/](http://localhost:8000/) — main UI (frontend)
     - [http://localhost:8000/api/](http://localhost:8000/api/) — backend prefix
+    - [http://localhost:8000/api/doc/](http://localhost:8000/api/doc/) - api doc
     - [http://localhost:8000/admin/](http://localhost:8000/admin/) — admin panel
 
 - Sample users:

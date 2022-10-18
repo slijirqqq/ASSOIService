@@ -5,6 +5,7 @@ from django.urls import path, include
 
 latest_urlpatterns = [
     path('', include(('api_doc.urls', 'api_doc'), namespace="api_doc")),
+    path('', include(('version.urls', 'version'), namespace="version")),
     path('auth/', include(('authentication.urls', 'authentication'), namespace="authentication")),
     path('account/', include(('account.urls', 'account'), namespace="account")),
 ]

@@ -4,6 +4,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from version.version import get_api_version
+
 permission_classes = [
     permissions.IsAdminUser,
 ]
@@ -15,7 +17,7 @@ if settings.DEBUG:
 
 api_info = openapi.Info(
     title=_("ASSOI API"),
-    default_version='',
+    default_version=get_api_version(),
     description=_("ASSOI cathedral API for employees of KSTU"),
     terms_of_service="https://www.google.com/policies/terms/",
     contact=openapi.Contact("ruslan.torbeev@yandex.ru"),
