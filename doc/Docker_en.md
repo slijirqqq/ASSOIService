@@ -19,8 +19,8 @@
 
 ```shell
 # clone project
-git clone --branch develop git@github.com:slijirqqq/ASSSOIService.git
-cd ASSSOIService
+git clone --branch develop git@github.com:slijirqqq/ASSOIService.git
+cd ASSOIService
 ```
 
 - Start docker compose:
@@ -42,6 +42,43 @@ docker compose run --rm api python manage.py init_full_data
 
 ```shell
 docker compose down -v
+```
+
+- Other useful commands:
+
+```shell
+# Remove all containers without volumes
+docker compose down
+
+# Stop compose containers
+docker compose stop
+
+# Restart compose containers
+docker compose restart
+
+# Connect to app bash
+docker compose exec <app_name: for example - api> bash
+
+# Network list
+docker network list
+
+# Remove network bridge
+docker network remove <network_name: for example - assoi>
+
+# Images list
+docker images
+
+# Running containers list
+docker ps
+
+# All containers list
+docker ps -qa
+
+# Remove all containers
+docker rm $(docker ps -qa)
+
+# Remove all images
+docker rmi $(docker images)
 ```
 
 ![img.png](static/images/img.png)
