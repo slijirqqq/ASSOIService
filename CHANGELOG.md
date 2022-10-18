@@ -22,6 +22,7 @@
 - `Coverage` покрытие
 - `Pylint` проверка
 - [Локализация](locale/ru/LC_MESSAGES/django.po)
+- 100% покрытие `version`
 
 ## Изменено
 

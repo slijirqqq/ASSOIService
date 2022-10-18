@@ -5,5 +5,5 @@ from version.views import (
 )
 
 urlpatterns = [
-    path('version/', VersionAPIView.as_view({'get': 'list'}), name='version'),
+    path('version/', VersionAPIView.as_view({'get': 'list'}), name='api-version'),
 ]
